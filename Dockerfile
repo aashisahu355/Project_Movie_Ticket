@@ -30,4 +30,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Command to start your Django app
-CMD ["gunicorn", "MoviesPro.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "MoviesPro.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120"]
