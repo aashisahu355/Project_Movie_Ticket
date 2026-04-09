@@ -1,7 +1,7 @@
-# Use slim Python image
-FROM python:3.11-slim
+# Use full Debian-based Python image for better compatibility
+FROM python:3.11-bullseye
 
-# Install only the required system dependencies
+# Install system dependencies for mysqlclient + PDF generation
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         gcc \
@@ -26,7 +26,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy all app code
+# Copy app code
 COPY . .
 
 # Command to start your Django app
