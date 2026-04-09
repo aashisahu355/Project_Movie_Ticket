@@ -1,0 +1,83 @@
+
+
+
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/getpannel.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<h2 class="text-center mt-2">Show Details</h2>
+
+<div class="container main px-3">
+
+    <div class="row bg-light" style="height: 80px;">
+         <div class="col-1 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Show Id</th>
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+                        
+              <th>Theatre Name </th>
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Movie Title  </th>
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Show Date </th>
+
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Show Time</th>
+        </div>
+
+         <div class="col-1 fs-5 fw-bold pt-3 text-center">
+            <th>Operations</th>
+        </div>
+
+
+    </div>
+    {% for show in shows  reversed %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-1 fs-5 p-2 text-center">
+              {{ show.id }}
+        </div>
+        <div class="col-3 fs-5 p-2 text-center">
+            <div class=" fs-5">{{ show.theatre.name }}</div>
+              <div class="fs-6">{{show.theatre.location}}</div>             
+              
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+              {{ show.movie.Title }}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+            {{ show.show_s_date }} - {{show.show_e_date}}
+
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+            {{ show.show_s_time }}-{{show.show_e_time}}
+
+        </div>
+        
+         <div class="col-1 fs-5 p-2 text-center">
+        <a href="{% url 'show_bookings' show.id %}"><button class="btn btn-dark">Details</button></a>
+        </div>
+
+
+    </div>
+    {% endfor %}
+
+
+
+</div>
+
+{% endblock content %}
+
+

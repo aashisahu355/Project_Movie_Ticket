@@ -1,0 +1,160 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="main">
+    <div class="container bg-light form_container gx-0">
+        <div class="container-fluid">
+            <div class="row ">
+                <div id="col1" class="col-6 d-flex flex-column justify-content-center align-items-center">
+                    <div class="text-light fs-3 fw-bold">
+                        Theatre Admin Register
+                    </div>
+                </div>
+                <div class="col-6 p-3 col_form ">
+                    <div class="text-center fs-3 fw-bold mb-2">Register </div>
+                    <form method="post" id="registerform" class="form-box active mx-auto">
+                        <label class=" fs-5">First Name:</label>
+                        <input id="first_name" type="text" class="form-control " name="first_name" data-error="err_first_name">
+                        <div id="err_first_name" class="text-danger" style="height: 20px;"></div>
+
+
+                        <label class="fs-5">Last Name :</label>
+                        <input id="last_name" type="text" class="form-control " name="last_name" data-error="err_last_name">
+                        <div id="err_last_name" class="text-danger" style="height: 20px;"></div>
+
+
+                        <label class="fs-5">Email :</label>
+                        <input id="email" type="email" class="form-control " name="email">
+                        <div id="err_email" class="text-danger" style="height: 20px;"></div>
+
+
+                        <label class="fs-5">Username :</label>
+                        <input id="username" type="text" class="form-control " name="username"><br>
+
+                        <label class="fs-5">Password :</label>
+                        <input id="password" type="password" class="form-control " name="password">
+                        <div id="err_pwd" class="text-danger" style="height: 20px;"></div>
+
+
+
+                        <input class="btn btn-dark w-50" type="submit" value="Register"><br><br>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('registerform').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!pwd_check()) {
+
+        const pwdInput = document.getElementById('password');
+        pwdInput.style.border = ""
+        const err_pwd = document.getElementById('err_pwd');
+       
+        pwdInput.style.border = "2px solid red"
+        err_pwd.innerText = "Password must contain atleast 8 character";
+        return; 
+
+    }
+
+
+        const formdata = new FormData(e.target);
+        const data = Object.entries(formdata.entries());
+
+
+        fetch('/theatre/tRegisterAPI/',
+            {
+                method: "POST",
+                body: formdata
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log("Success")
+                alert(result.message);
+
+                location.reload()
+                window.location.href = '/theatre/tverify/';
+            })
+            .catch((error) => {
+                console.log("some error occur")
+            })
+
+
+
+
+
+    });
+
+    
+function pwd_check(){
+
+         const pwdInput = document.getElementById('password');
+         const pwd = pwdInput.value;
+        pwdInput.style.border = ""
+          err_pwd.innerText = "";
+        if(pwd && pwd.length< 8){
+            
+            
+            return false;        
+        }else{
+            return true;
+        }
+        };
+
+
+
+const nameFields = document.querySelectorAll('#first_name, #last_name');
+
+nameFields.forEach(field => {
+    field.addEventListener('input', function() {
+        
+
+        const nameregex = /^[a-zA-Z\s'-]+$/;
+        const name = this.value;
+
+        const errorId = this.getAttribute('data-error'); 
+        const errordiv= document.getElementById(errorId);
+       
+         
+        this.style.border =""
+        errordiv.innerText ="";
+
+        if (name && !nameregex.test(name)) {
+            this.style.border = "2px solid red";
+            errordiv.innerText ="Invalid character used..";
+        }
+    });
+});
+
+
+document.getElementById('email').addEventListener('input',function(){
+        const email = this.value;
+        const emailregex = /[^\w.@+-]/;
+        this.style.border = ""
+
+        const err_email = document.getElementById('err_email');
+        err_email.innerText = "";
+
+        if(email && email.match(emailregex)){
+
+            err_email.innerText="Inavlid Format(Only alphabets,numbers,@ allowed)";
+          }
+        });
+
+
+
+
+    
+
+
+
+</script>
+{% endblock content %}

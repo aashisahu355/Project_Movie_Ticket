@@ -1,0 +1,117 @@
+{% extends 'theatre_dashboard.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container mb-4">
+    <div class="row ">
+        <div class="fs-3 fw-bold">Filter by Theatre</div>
+        <div class="col-6 text-end">
+            
+            <form method="post" class="">
+                {% csrf_token %}
+                <select name="theatre" class="form-select" onchange="this.form.submit()">
+                <option value="ALL" {% if selected_theatre == 'ALL' %} selected {% endif %}>ALL</option>
+                {% for id, name, location in theatres %}
+                   <option value="{{ id }}" {% if selected_theatre == id|stringformat:"s" %} selected {% endif %}>
+               {{ name }}-{{location}}
+        </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Apply" hidden>
+            </form>
+
+        </div>
+        <div class="col-6 text-end">
+            <a href="{% url 'select_movie_for_report' %}" class="btn btn-dark">Change Movie</a>
+        </div>
+    </div>
+</div>
+
+{% if report %}
+
+  <h2 class="text-center">Movie Sales Report</h2>
+<div class="container">
+<div class="row bg-light  border" style="height: 80px;">
+        
+         <div class="col-6 fs-5 fw-bold pt-3 text-end p-3 border-end">
+               Total Ticket Sold : {{overall_total_tickets}}
+        </div>
+        
+         <div class="col-6 fs-5 fw-bold pt-3 text-start p-3 border-start">
+            <th>Total Revenue :{{overall_total_amount}}</th>
+        </div>
+
+
+    </div> 
+    </div>
+<div class="container main px-3 mb-5" style="border-bottom: 3px solid black;border-top: 3px solid black">
+
+    <div class="row bg-light" style="height: 80px;border-bottom: 3px solid black;">
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Theatre Name</th>
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Show Date </th>
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Show Time</th>
+
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Ticket Sold</th>
+
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Total Revenue</th>
+        </div>
+
+
+    </div>
+    {% for booking in report %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-3 fs-5 p-2 text-center">
+              <div class=" fs-5">{{ booking.theatre }}</div>
+              <div class="fs-6">{{ booking.location}}</div>
+        </div>
+        <div class="col-2 fs-5 p-2 text-center">
+                        
+            {{ booking.date }}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+                        
+            {{ booking.time }}
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+            {{ booking.tickets_sold }}
+
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+            {{ booking.total_revenue }}
+
+        </div>
+        
+
+    </div>
+    {% endfor %}
+
+
+
+
+   
+
+</div>
+ {% else %}
+    <div class=" oops container border rounded">
+        <div class="text-center">
+            <img src="{% static 'mymedia/images/oops.jfif' %}" alt="">
+        </div>
+        <h3 class="text-center">No Shows found</h3>
+
+    </div>
+    {% endif %}
+
+ 
+{% endblock content %}

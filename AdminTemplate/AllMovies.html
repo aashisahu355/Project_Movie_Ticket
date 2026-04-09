@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+     <div class="container">
+        <div class="row ">
+            {% for movie in allmovies reversed %}
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 rounded p-2">
+                     <div class="card" >
+                         <img src="{{ movie.poster.url }}" alt="" style=" aspect-ratio:3/3;" class="card-img-top rounded-top">
+                         <div class="card-body">
+                               <div class="card-title fs-5 fw-bold">
+                                {{ movie.Title }}
+                               </div>
+                              <div class="card-text fs-5">
+                                  {{ movie.Category }} 
+                              </div>
+                        
+        
+                </div>
+                <div class="card-footer">
+                        <a href="{% url 'moviedetails' movie.id %}" class="btn btn-dark text-center  mt-2">More Details</a>
+                        <a href="{% url 'show_details' movie.id %}" class="btn btn-dark text-center  mt-2">Show Details</a>
+                    </div>
+
+              </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+     </div>
+{% endblock body %}

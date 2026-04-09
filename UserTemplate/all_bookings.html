@@ -1,0 +1,123 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block body %}
+
+{% if all_bookings %}
+
+  <h2 class="text-center">All Bookings</h2>
+
+<div class="container main px-3">
+
+    <div class="row bg-light" style="height: 80px;">
+        <div class="col-1 fs-5 fw-bold pt-3 text-center">
+            <th>Booking Id </th>
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Movie Name </th>
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Theatre </th>
+
+        </div>
+         <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Show Date </th>
+
+        </div>
+         <div class="col-1 fs-5 fw-bold pt-3 text-center">
+            <th>Show Time</th>
+        </div>
+         <div class="col-1 fs-5 fw-bold pt-3 text-center">
+            <th>Status</th>
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Operation</th>
+        </div>
+        
+
+
+    </div>
+    {% for booking in all_bookings reversed %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-1 fs-5 p-2 text-center">
+                        
+              {{ booking.id }} 
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+                        
+            {{ booking.show.movie.Title }}
+
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+
+            <div class=" fs-5">{{ booking.show.theatre.name }}</div>
+            <div class="fs-6">{{booking.show.theatre.location}}</div>
+
+        </div>
+         <div class="col-2 fs-5 p-2 text-center">
+            {{ booking.date }}
+
+        </div>
+         <div class="col-1 fs-5 p-2 text-center">
+            {{ booking.show.show_s_time }}
+
+        </div>
+         <div class="col-1 fs-5 p-2 text-center text-capitalize">
+            {{ booking.status }}
+
+        </div>
+       
+         <div class="col-3 fs-5 p-2  text-center">
+            
+            {% if booking.order_id %}
+            <a  href="{% url 'download_ticket_pdf' booking.order_id.id %}" class="btn btn-dark">Download Ticket</a>
+            {% else %}
+              <h4>Closed</h4>
+            {% endif %}
+             {% if booking.can_cancel %}
+            <button  class="btn btn-dark my-1" onclick="cancel_booking('{{booking.id}}')">Cancel</button>
+             {% endif %}
+           
+        </div>
+       
+           
+        
+
+    </div>
+    {% endfor %}
+
+
+</div>
+ {% else %}
+    <div class=" oops container border rounded">
+        <div class="text-center">
+            <img src="{% static 'mymedia/images/oops.jfif' %}" alt="">
+        </div>
+        <h3 class="text-center">No Booking Found</h3>
+
+    </div>
+    {% endif %}
+
+<script>
+    function cancel_booking(id) {
+
+    if (confirm("Are you sure you want to cancel this booking ?\n\nCancellation charges : ₹50 per ticket")) {
+       fetch(`/cancel_booking/${id}/`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.message) {
+                  alert(data.message);
+                  window.location.reload(); 
+            }else {
+                alert(data.error);
+            }
+        });
+    }
+    
+}
+</script>
+
+ 
+{% endblock body %}

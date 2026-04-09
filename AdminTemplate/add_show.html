@@ -1,0 +1,46 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="container main p-3">
+    <form  id="addshowform" method="post">
+        {% csrf_token %}
+        <label >Choose Movie :</label>
+        <select name="movie" id="movie" class="form-select">
+            {% for movie in allmovies %}
+              <option value="{{movie.id}}">{{movie.Title}}</option>
+            {% endfor %}
+        </select>
+
+        <label for="">Show Start Date :</label>
+        <input type="date" class="form-control" name="show_s_date"><br>
+
+        <label for="">Show End Date :</label>
+        <input type="date" class="form-control" name="show_e_date"><br>
+
+
+        <label for="">Starting Time :</label>
+        <input type="time" class="form-control" name="show_s_time"><br>
+
+        <label for="">Ending Time :</label>
+        <input type="time" class="form-control" name="show_e_time"><br>
+
+
+        <input type="submit" value="Add" class="btn btn-dark">
+
+    </form>
+
+
+</div>
+
+            
+{% endblock content %}
+

@@ -1,0 +1,89 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/shows.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+
+<div class="body">
+    <div class="container busbox">
+        <div class="row">
+            {% for d in dates %}
+            <div class="col-md-1 text-center m-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ d|date:'Y-m-d' }}" class="form-control w-100" name="date">
+                    <input class="btn btn-dark" {% if d == selected_date %}
+                        style="background:rgb(228, 46, 46); color:white;" {% endif %} type="submit"
+                        value="{{ d|date:'Y-m-d' }}">
+            </div>
+            </form>
+            {% endfor %}
+
+
+        </div>
+    </div>
+    {% if bookings %}
+
+
+    <h2 class="text-center text-dark fw-bolder">Bookings</h2>
+<div class="container main px-3">
+    <div class="row bg-light" style="height:100px;">
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+
+            <th>Name </th>
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+
+            <th>Seats </th>
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Booking Date</th>
+
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Status</th>
+        </div>
+
+
+    </div>
+
+    {% for booking in bookings %}
+
+    <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-3 fs-5 p-2 text-center">
+
+            {{ booking.user.first_name }} {{ booking.user.last_name}}
+        </div>
+        <div class="col-3 fs-5 p-2 text-center">
+            {{ booking.seats }}
+        </div>
+        <div class="col-3 fs-5 p-2 text-center">
+            {{ booking.date }}
+
+        </div>
+        <div class="col-3 fs-5 p-2 text-center">
+            {{ booking.status }}
+        </div>
+
+
+    </div>
+
+    {% endfor %}
+</div>
+
+    {% else %}
+    <div class=" oops container border rounded">
+        <div class="text-center">
+            <img src="{% static 'mymedia/images/oops.jfif' %}" alt="">
+        </div>
+        <h3 class="text-center">Oops No Bookings Found</h3>
+
+    </div>
+    {% endif %}
+</div>
+
+
+    {% endblock content %}

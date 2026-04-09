@@ -1,0 +1,62 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+       <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="main">
+    <div class="container bg-light form_container gx-0">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 p-3 col_form">
+                    <div class="text-center fs-3 fw-bold mb-2">Verify OTP </div>
+                        <form  method="post" id="verifyform" class="form-box active mx-auto">
+                            <label class=" fs-5">OTP:</label>
+                            <input id="otp" type="text" class="form-control w-50" name="otp"><br>
+
+                        
+                            <input class="btn btn-dark align-item-center w-50" type="submit" value="Verify"><br><br>
+                          
+                        </form>
+
+                        
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('verifyform').addEventListener('submit',(e) => {
+       e.preventDefault();
+
+       const formdata = new FormData(e.target);
+       const data = Object.entries(formdata.entries());
+
+
+       fetch('/movieadmin/uverify_otp/',
+        {
+          method : "POST",
+          body : formdata
+        })
+        .then((response) => response.json()) 
+        .then((result) => {
+           console.log("Success")
+           alert(result.message);
+           location.reload()
+           window.location.href = '/movieadmin/uaccount/';
+        })
+        .catch((error) => {
+          console.log("some error occur")
+        })
+
+    });
+
+    
+</script>
+{% endblock content %}
+
+
+

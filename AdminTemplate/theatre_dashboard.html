@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Pannel</title>
+    <!--link for icons  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- bootstrap css cdn link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    
+    <!-- bootstrap js cdn link  -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- custom css -->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+     
+     <style>
+        body{
+           font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+        }</style>
+    {% block css %} 
+      
+    {% endblock css %}
+</head>
+<body>
+    <div>
+            <!-- row 1 -->
+        <nav class="navbar navbar-expand-lg bg-light p-0">
+            <div class="mx-5 p-0 container-fluid">
+                            <div class="navbar-brand">
+                                <span><img class="my-0" src="{% static 'mymedia/images/logo.png' %}" alt="" height="90" width="150"></span>
+                            </div>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#NavbarCollapseContent" aria-controls="NavbarCollapseContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="btn">Menu</span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="NavbarCollapseContent"> 
+                                            
+                                    <div class="text-center w-75 ps-5 fs-3 fw-bold ms-5">Admin Pannel</div>           
+                                          
+                                    <ul class="navbar nav">
+                                            <li class="nav-item text-light">
+                                             <a class="nav-link text-dark fs-4 " href="{% url 'theatre_dashboard' %}">
+                                                   Home 
+                                             </a>
+                                            </li>
+                                            <li class="nav-item text-light">
+                                             <a class="nav-link text-light" href="{% url 'chooseadmin' %}">
+                                                <button class="btn btn-danger ">Account</button>
+                                             </a>
+                                            </li>
+                                            <li class="nav-item text-light">
+                                             <a class="nav-link text-dark" href="{% url 'logout' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">
+                                                <i class="fa fa-sign-out fs-4"></i>
+                                             </a>
+                                            </li>
+                                    </ul>
+                                
+                            </div>
+                </div>  
+                            
+        </nav> 
+    </div>
+
+{% block content %}
+<div class="container">
+   <div class="fs-3 fw-bold text-center">Add Details</div>
+   <div class="row">
+      <div class="col-4 rounded my-2" >
+         <div class="card bg-light text-center">
+            <img src="{% static 'mymedia/images/movie.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'add_movie' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Add Movie</div>
+            </div></a>
+         </div>
+
+      </div>
+      <div class="col-4 rounded my-2">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/theatre.jpg' %}" class="card-img-top" alt="">
+            <a href="{% url 'addtheatre' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Add Theatre</div>
+            </div></a>
+         </div>
+      </div>
+      <div class="col-4 rounded my-2">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/show.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'select_theatre' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Add Show</div>
+            </div></a>
+         </div>
+      </div>
+   </div>
+</div>
+ <div class="fs-3 fw-bold text-center">Get Details</div>
+<div class="bg-light">
+   
+<div class="container p-3">
+   <div class="row">
+      <div class="col-3 rounded my-2" >
+         <div class="card bg-light text-center">
+            <img src="{% static 'mymedia/images/moviedetail.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'get_movie' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Movie Details</div>
+            </div></a>
+         </div>
+
+      </div>
+      <div class="col-3 rounded my-2">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/theatredetail.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'get_theatre' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Theatre Details</div>
+            </div></a>
+         </div>
+      </div>
+      <div class="col-3 rounded my-2">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/showdetail.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'get_show' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Show Details </div>
+            </div></a>
+         </div>
+      </div>
+
+      <div class="col-3 rounded my-2">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/userdetail.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'get_user' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">User Details</div>
+            </div></a>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+
+<!-- sales report -->
+    
+<div class="container p-3">
+    <div class="fs-3 fw-bold text-center">Sales Report</div>
+   <div class="row justify-content-center">
+
+      <div class="col-4 rounded my-2 text-end">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/theatre_sales.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'select_theatre_for_report'  %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Theatre Sales Details</div>
+            </div></a>
+         </div>
+      </div>
+
+      <div class="col-4 rounded my-2 text-start">
+         <div class="card bg-light text-center">
+           <img src="{% static 'mymedia/images/movie_sales.png' %}" class="card-img-top" alt="">
+            <a href="{% url 'select_movie_for_report' %}">
+               <div class="card-body btn btn-outline-dark place-content-center">
+               <div class="card-title fs-5">Movie Sales  Details</div>
+            </div></a>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock content %}
+</body>
+</html>

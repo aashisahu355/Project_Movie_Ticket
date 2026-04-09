@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/addmovie.css' %}"> -->
+<style>
+    .main {
+
+        height: fit-content;
+        width: 800px;
+        border: 1px solid rgb(172, 172, 199);
+        box-shadow: 2px 2px 5px rgb(155, 151, 151);
+    }
+
+    .col{
+       
+        border-right: 1px solid grey;
+
+    }
+</style>
+
+{% endblock css %}
+
+
+
+{% block body %}
+
+<div class=" m-3 text-center text-capitalize fw-bold fs-3">Confirm Booking Details</div>
+
+<div class="container main py-3 rounded-4">
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Movie Name :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ m_obj.Title }}</div>
+    </div>
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Theatre Name :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ t_obj.name }}</div>
+    </div>
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Theatre Location :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ t_obj.location }}</div>
+    </div>
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Theatre City :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ t_obj.city }}</div>
+    </div>
+
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Show Date :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ date }}</div>
+    </div>
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Show Time :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ obj.show_s_time}} - {{ obj.show_e_time}}</div>
+    </div>
+    
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Seats :</div>
+            <div class="fs-4 col-6 text-start ps-3">
+                {% for seat in cat_dic %}
+                {{ seat }},
+            {% endfor %}
+        </div>
+    </div>
+    
+
+    <div class="row p-2">
+
+        <div class="col fw-bold fs-4 col-6 text-end pe-3">Total Charges :</div>
+        <div class="fs-4 col-6 text-start ps-3">{{ total_price }}</div>
+    </div>
+
+
+
+
+    <div class="row justify-content-center"> 
+    
+        <form  method="POST" class="d-flex justify-content-center">
+            {% csrf_token %}
+            <input type="hidden" name="total_price" value="{{ total_price }}"><br>
+            <input type="submit" class=" btn btn-dark w-50 mt-3" value="Make Payment">
+        </form>
+
+        
+    
+
+
+
+</div>
+</div>
+
+
+
+
+{% endblock body %}

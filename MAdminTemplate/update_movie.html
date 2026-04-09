@@ -1,0 +1,89 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="container main p-3">
+    <form id="addmovieform" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+
+        <label for="">Category :</label>
+        <input type="text" class="form-control" name="Category"><br>
+
+        <label for="">Language :</label>
+        <input type="text" class="form-control" name="language"><br>
+
+        
+        <label for="">Duration :</label>
+        <input type="text" class="form-control" name="duration"><br>
+
+         <label for="">Release Date: :</label>
+        <input type="date" class="form-control" name="release_date"><br>
+
+
+        <label for="">Poster(Size must be 462 x 195) :</label><p id="msg" style="color: rgb(180, 58, 58);"></p>
+        <input type="file" class="form-control" id="posterInput" name="poster" onchange="validateImage(this)"><br>
+
+        <label for="">Trailer :</label>
+        <input type="file" class="form-control" name="Trailer"><br>
+
+        <label for="">Discription :</label>
+        <input  class="form-control" name="discription"><br>
+
+
+
+        <input type="submit" value="update" class="btn btn-dark center-input">
+
+    </form>
+
+
+</div>
+<script>
+
+     let isImageValid = false;
+     const movieId = {{movie.id}};
+    document.getElementById('addmovieform').addEventListener('submit',(e) => {
+    
+        
+        if (!isImageValid) {  
+            e.preventDefault();
+            alert("Please upload a valid image before submitting!");
+            return;
+    }
+})    
+
+
+    function validateImage(input){
+    const file = input.files[0];
+    const msg = document.getElementById("msg");
+    msg.innerText = ""; 
+    isImageValid = false;
+
+    if (!file) return;
+
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    img.onload = function () {
+        const minWidth = 462;
+        const minHeight = 195;
+
+        if (img.width < minWidth || img.height < minHeight) {
+            msg.innerText = `Minimum images size must be ${minWidth}x${minHeight}`;
+            isImageValid = false;
+        } else{
+            isImageValid = true;
+        }
+    };
+};
+
+</script>
+{% endblock content %}
+

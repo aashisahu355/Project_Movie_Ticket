@@ -1,0 +1,73 @@
+
+
+
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/getpannel.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<h2 class="text-center">All Movies</h2>
+
+<div class="container main px-3">
+
+    <div class="row bg-light" style="height: 80px;">
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+                        
+              Movie Title
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+                        
+            Movie Category
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            Language
+
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            Operations
+        </div>
+
+
+    </div>
+    {% for movie in allmovies %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-3 fs-5 p-2 text-center">
+                        
+              {{ movie.Title }}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+                        
+            {{ movie.Category}}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+            {{ movie.language }}
+
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+            <a href="{% url 'update_movie' movie.id %}" class="btn btn-dark">Update</a>
+            <button class="btn btn-dark" onclick="confirmDelete('{{movie.id}}')">Delete</button>
+        </div>
+
+
+    </div>
+    {% endfor %}
+
+
+</div>
+<script>
+    function confirmDelete(movieId) {
+    if(confirm("Are you sure you want to delete this movie ?")) {
+        window.location.href = `/movieadmin/del_movie/${movieId}`;
+    }
+}
+
+</script>
+{% endblock content %}
+

@@ -1,0 +1,100 @@
+
+
+
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/getpannel.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<h2 class="text-center">All Users</h2>
+
+<div class="container main px-3">
+
+    <div class="row bg-light" style="height: 80px;">
+        <div class="col-1 fs-5 fw-bold pt-3 text-center">
+                        
+              <th>Firstname</th>
+        </div>
+         <div class="col-1 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Lastname </th>
+        </div>
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Email </th>
+
+        </div>
+        <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Username </th>
+
+        </div>
+        <div class="col-2 fs-5 fw-bold pt-3 text-center">
+            <th>Status </th>
+
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Operations</th>
+        </div>
+
+
+    </div>
+    {% for user in alluser %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-1 fs-5 p-2 text-center">
+                        
+              {{ user.first_name }}
+        </div>
+         <div class="col-1 fs-5 p-2 text-center">
+                        
+            {{ user.last_name}}
+        </div>
+        <div class="col-3 fs-5 p-2 text-center">
+            {{ user.email }}
+
+        </div>
+        <div class="col-2 fs-5 p-2 text-center">
+            {{ user.username }}
+
+        </div>
+        <div class="col-2 fs-5 p-2 text-center">
+            {% if user.is_active %}
+                Activate
+            {% else %}
+                Deactivate
+            {% endif %}
+
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+        <button class="btn btn-dark" onclick="confirmActivate('{{ user.id }}')">Activate</button>
+        <button class="btn btn-dark" onclick="confirmDeactivate('{{ user.id }}')">Deactivate</button>
+        </div>
+
+
+    </div>
+    {% endfor %}
+
+
+</div>
+<script>
+    function confirmActivate(userId) {
+    if (confirm("Are you sure you want to activate this user ?")) {
+        window.location.href =  `/movieadmin/activate/${userId}`;
+    }
+}
+
+function confirmDeactivate(userId) {
+    if (confirm("Are you sure you want to deactivate this user ?")) {
+        window.location.href =  `/movieadmin/deactivate/${userId}`;
+    }
+}
+
+</script>
+
+{% endblock content %}
+

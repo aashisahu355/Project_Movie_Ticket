@@ -1,0 +1,40 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+ {% block css %}
+
+   <style>
+      .card:hover{
+           box-shadow: 3px 3px 6px rgb(46, 42, 42);
+      }
+   </style>  
+
+ {% endblock css %}
+
+{% block content %}
+
+<div class="container">
+    <div class="fs-4 text-center fw-bold text-capitalize">Your Theatres</div>
+    <div class="row ">
+        {% for t in t_obj %}
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 my-3">
+            <a href="{% url 'addshow' t.id %}">
+                <div class="card bg-light">
+              
+                <div class="card-body">
+                    <div class="card-title text-center fs-3 fw-bold">
+                        {{ t.name }}
+                    </div>
+                    <div class="card-text text-center fs-5">
+                        {{ t.location }} ,{{t.city}}
+
+                    </div>
+
+                </div>
+            </div></a>
+
+        </div>
+         {% endfor %}
+    </div>
+</div>
+    {% endblock content %}

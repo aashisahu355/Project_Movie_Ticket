@@ -1,0 +1,51 @@
+
+
+
+
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="container main p-3">
+   
+  <form method="POST">
+  {% csrf_token %}
+  <div id="category-container">
+    <div class="category-row d-flex ">
+      <input type="text" name="category_name[]" placeholder="Category Name" required class="form-control m-1">
+      <input type="number" step="0.01" name="category_price[]" placeholder="Price" required class="form-control m-1">
+      <input type="number" name="seat_count[]" placeholder="No. of seats" required class="form-control m-1">
+    </div>
+  </div>
+
+  <button type="button " onclick="addCategory()" class=" btn btn-dark">+ Add More</button>
+  <button type="submit " class="btn btn-dark justify-content-center">Save Categories</button>
+</form>
+
+
+</div>
+<script>
+  function addCategory() {
+    const container = document.getElementById('category-container');
+    const row = document.createElement('div');
+    row.classList.add('category-row');
+    row.innerHTML = `
+      <input type="text" name="category_name[]" placeholder="Category Name" class="form-control m-1" required>
+      <input type="number" step="0.01" name="category_price[]" placeholder="Price" class="form-control m-1" required>
+      <input type="number" name="seat_count[]" placeholder="No. of seats" class="form-control m-1" required>
+    `;
+    container.appendChild(row);
+    row.classList.add('d-flex');
+  }
+</script>
+{% endblock content %}
+
+

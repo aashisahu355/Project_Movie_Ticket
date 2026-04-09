@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+            font-size: larger;
+        }
+
+        .ticket {
+            width: 520px;
+            background-color: #8f8888;
+            border: 2px dashed #333;
+            border-radius: 12px;
+            padding: 20px 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .ticket h2 {
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .ticket-section {
+            margin-bottom: 15px;
+        }
+
+        .ticket-section b {
+            color:navy;
+        }
+
+        .ticket-section span {
+            color: #222;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .seat-box {
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin: 3px;
+            font-weight: bold;
+        }
+
+        .ticket-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        /* Optional: print-friendly */
+        @media print {
+            body { background-color: #fff; }
+            .ticket { box-shadow: none; border: 2px dashed #333; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ticket">
+        <h2>🎟 Movie Ticket</h2>
+
+        <div class="ticket-section ">
+            <b>Movie:</b> <span>{{ order.book_id.show.movie.Title }}</span>
+        </div>
+
+        <div class="ticket-section">
+            <b>Seats:</b>
+            {% for seat in order.book_id.seats %}
+                <span class="seat-box">{{ seat }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="ticket-section">
+            <b>Timing:</b>
+            <span>{{ order.book_id.show.show_s_time }} - {{ order.book_id.show.show_e_time }}</span>
+        </div>
+
+        <div class="ticket-section">
+            <b>Booking ID:</b> <span>{{ order.book_id_id }}</span>
+        </div>
+
+        <div class="ticket-footer">
+            Present this ticket at the theatre entrance. Enjoy your movie! 🍿
+        </div>
+    </div>
+</body>
+</html>

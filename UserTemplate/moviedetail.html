@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+ <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css %}
+      
+{% block body %}
+
+
+ <div class="position-relative">
+     <img src="{{ movie.poster.url }}" alt="" class="w-100 " style="min-height:400px;max-height:450px;filter: blur(5px);">
+     <div class="container" style="position:absolute;top:1%; left:5%;">
+     <div class="row">
+        <div class="col-md-6 d-none d-lg-block text-md-end p-1 mt-4"><img src="{{ movie.poster.url }}" alt="" class="rounded-3" style=" max-height:350px; aspect-ratio: 3/3;"></div>
+
+        <div class="col-md-6 mt-4 pt-3 ">        
+              <div class=" fs-1 my-1 fw-bolder text-light">{{ movie.Title}}</div>
+              <div class=" fs-4 my-1 text-light fw-bold">{{ movie.Category}}</div>
+              <div class=" fs-4 my-1 text-light fw-bold">{{ movie.language}}</div>
+              <div class=" fs-4 my-1 text-light fw-bold">{{ movie.duration}}</div>
+              
+              {% if movie.promote %}
+              <div class=" fs-4 my-1 text-light fw-bold"><i class="fa fa-star"></i> Promoted</div>
+              
+              <div class=" fs-4 my-1 text-light fw-bold">Releasing on {{ movie.release_date}}</div>
+              {% else %}
+              <div class=" fs-4 my-1 text-light fw-bold">Released on {{ movie.release_date}}</div>
+              {% endif %}
+              <a href="{% url 'show_details' movie.id %}" class=" btn btn-light fs-5 my-2" style="width:200px">Show Details</a>
+              
+        </div>
+
+      </div>
+     </div>
+ </div>
+        
+
+
+   <div class="container">
+      <div class="row">
+        <!-- heading part -->
+        <div class="col-12 heading">
+              About <span> Movie</span>
+        </div>
+        <!-- video part -->
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 ">
+              <video id="vd"  src="{{ movie.Trailer.url }}" autoplay loop muted controls></video>
+        </div>
+        <!-- content part -->
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 fs-4"><br>
+              <p>{{ movie.discription }}</p>
+        </div>
+      </div>
+    </div>
+
+
+   
+{% endblock body %}
+ 
+{% block js %}
+  
+{% endblock js %}
+

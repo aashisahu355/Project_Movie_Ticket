@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body %}
+
+{% if results %}
+
+     <div class="container">
+        <div class="row ">
+            {% for movie in results %}
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 my-3">
+              <div class="card" >
+                <img src="{{ movie.poster.url }}" alt="" style="height:200px" class="rounded-top">
+                <div class="card-body">
+                    <div class="card-title fs-3 fw-bold">
+                        {{ movie.Title }}
+                    </div>
+                    <div class="card-text fs-5">
+                        {{ movie.Category }}
+                    </div>
+                    </div>
+                    <div class="card-footer">
+        
+                        <a href="{% url 'moviedetails' movie.id %}" class="btn btn-dark text-center  mt-2">More Details</a>
+                        <a href="{% url 'show_details' movie.id %}" class="btn btn-dark text-center  mt-2">Show Details</a>
+                    </div>
+        
+                
+
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+     </div>
+  {% else %}
+    <div class=" oops container border rounded">
+        <div class="text-center">
+            <img src="{% static 'mymedia/images/oops.jfif' %}" alt="">
+        </div>
+        <h3 class="text-center">No movies found</h3>
+
+    </div>
+    {% endif %}
+
+{% endblock body %}

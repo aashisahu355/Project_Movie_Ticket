@@ -1,0 +1,202 @@
+
+.navbar-brand img{
+    height: 100px;
+    width: 150px;
+}
+
+.carousel-item img{
+    position:relative;
+    height: 500px;
+}
+
+.btn1{
+    width: 200px;
+}
+
+.tds-icon{
+    width: 200px;
+    height: 200px;
+}
+
+.container{
+    margin-top: 20px;
+}
+.card{
+    height:100%;
+    width: 100%;
+}
+.card-body{
+    height:100%;
+    width: 100%;
+}
+#vd{
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.movie-card:hover {
+    border:2px solid navy;
+    box-shadow: 2px 2px 5px rgb(150, 205, 223);
+}
+
+.heading{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+
+}
+
+.heading span{
+    color:rgb(9, 9, 84)
+}
+
+.about p{
+    justify-content: center;
+    font-size: 22px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.img{
+    height: 48%;
+}
+
+.details-btn{
+    position: relative;
+    left: 100px;
+    top:40px;
+    border: 1px solid black;
+}
+
+
+
+.img-part img{
+  width: 100%;
+}
+.iframe{
+    width: 100%;
+    height: 100%;
+}
+
+.data-part a{
+    padding: 2%;
+    margin: 2%;
+}
+
+.hidden-part{
+    padding: 2%;
+}
+
+
+
+
+
+
+
+
+
+.list-part{
+  border-left: 1px solid rgb(111, 109, 109);
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.list a li{
+  font-size: 18px;
+  color: black;
+  border: none;
+  text-align: left;
+  
+}
+
+
+
+/* footer */
+
+a {
+    color:black;
+    text-decoration: none;
+    -webkit-transition: 0.2s opacity;
+    transition: 0.2s opacity;
+}
+a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+    opacity: 0.8;
+    color: #0e2149;
+}
+#footer {
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #b1b1b3;
+    margin-top: 5px;
+}
+
+.footer-logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.footer-logo>a>img {
+    max-height: 80px;
+}
+.footer-follow {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.footer-follow li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 13px;
+}
+
+.footer-follow li a {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 3px;
+  background-color: #0e224a;
+  color:#FFF;
+}
+
+.footer-copyright p {
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0;
+  color:black;
+}
+
+/* current_offers.html css */
+.center{
+    text-align: center;
+}
+.main-heading{
+    font-size: 55px;
+}
+
+.sub-heading{
+    font-size: 25px;
+}
+.sub-sub-heading{
+    font-size: 15px;
+    color: grey;
+}
+.ENT-col-1 span{
+    font-size: 25px;
+    font-weight: 500;
+}
+.ENT-col-2 img{
+    width: 100%;
+     height: 50%;
+}
+
+
+
+
+
+

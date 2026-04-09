@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--link for icons  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- bootstrap css cdn link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- bootstrap js cdn link  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+    </style>
+    <script src="{% static 'js/register.js' %}"></script>
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock css %}
+
+
+</head>
+
+<body>
+
+
+
+
+
+    <div>
+        <!-- row 1 -->
+        <nav class="navbar navbar-expand-lg bg-light p-0">
+            <div class="mx-5 p-0 container-fluid">
+                <div class="navbar-brand">
+                    <span><img class="my-0" src="{% static 'mymedia/images/logo.png' %}" alt="" height="90px"
+                            width="150px"></span>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#NavbarCollapseContent" aria-controls="NavbarCollapseContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="btn btn-outline-secondary">Menu</span>
+                </button>
+                <div class="collapse navbar-collapse" id="NavbarCollapseContent">
+                    <div class="w-50">
+                        <form class="mx-3 d-flex" method="post" action="{% url 'search' %}">
+                            {% csrf_token %}
+                            <input class="form-control " type="search"
+                                placeholder=" Search Movies by name,category,description" aria-label="Search"
+                                name="movie">
+                            <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search "></i></button>
+                        </form>
+                    </div>
+                    <ul class="navbar nav ms-auto">
+                        <li class="nav-item text-light ms-3"><a class="nav-link text-light"
+                                href="{% url 'account' %}"><button class="btn btn-danger">Account</button></i></a></li>
+                        <li class="nav-item text-light"><a class="nav-link text-dark" id="logout"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout"><i
+                                    class="fa fa-sign-out fs-4"></i></a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </nav>
+        <!-- row 2 -->
+
+        <nav class="navbar bg-secondary mt-0">
+            <div class="mx-5 container-fluid ">
+                <ul class="navbar nav">
+
+                     <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'theatre_dashboard' %}">
+                            Admin Pannel
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'all_movie' %}">
+                            Movies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'all_bookings' %}">
+                            Bookings
+                        </a>
+                    </li>
+                    
+                   
+
+                </ul>
+                <ul class="navbar nav ">
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link text-light">About us</a></li>
+                    <li class="nav-item"><a href="{% url 'support' %}" class="nav-link text-light">Support</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+    </div>
+
+
+
+
+    {% block body %}
+    <!-- static slider  -->
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for recent in recent_movies %}
+
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="3000">
+                <img src="{{ recent.poster.url }}" height="250px" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end text-dark mb-2 fs-3  fw-bold ">
+                        <div class="text-light fs-2">{{recent.Title}}</div> <br>
+                    </div>
+
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        {% if recent.promote %}
+                        <div class="fs-5 bg-light btn btn-light ms-md-3"><i class="fa fa-star fs-5"
+                                style="color:black;"></i> Promoted</div>
+                        {% endif %}
+                        <a href="{% url 'moviedetails' recent.id %}" class="btn btn-primary  fs-5"
+                            style="width: 200px;">More Details</a>
+                        <a href="{% url 'show_details' recent.id %}" class="btn btn-light fs-5"
+                            style="width: 200px;">Show Details</a>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>
+
+    <!-- latest movies -->
+    <div class="col-12 heading">
+              Available <span> Movies</span>
+        </div>
+    
+         {% comment %} <div class="fs-2 fw-bold ms-5">{{category}} </div> {% endcomment %}
+         <div id="carousel-{{ forloop.counter }}" class="carousel slide" >
+              <div class="carousel-inner">
+              {% for slide in data  %}
+
+               {% comment %} {% for cards in slide %} {% endcomment %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="container">
+                    <div class="row">
+                         {% for movie in slide %}
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 rounded p-2">
+                                <a href="{% url 'moviedetails' movie.id %}">
+
+
+                                    <div class="card movie-card" style="height:300px;">
+                                        <img src="{{ movie.poster.url }}" alt="" style=" aspect-ratio:3/2;" class="rounded-top">
+                                        <div class="card-body">
+                                            <div class="card-title fs-4 fw-bold">
+                                                {{ movie.Title }}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+             </div>
+        {% endfor %}
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ forloop.counter }}"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark rounded-5 border p-3"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ forloop.counter }}"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-5 border p-3 "></span>
+    </button>
+    </div>
+    
+    </div>
+
+
+
+    {% endblock body %}
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="footer-follow">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                    </ul>
+                    <div class="footer-copyright">
+                        <p>BookYourShow © 2025. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        document.getElementById('logout').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (confirm("Do you want to logout...?")) {
+                window.location.href = '/logout_user/';
+            } else {
+                window.location.reload();
+            }
+        });
+    </script>
+    
+
+</body>
+
+</html>

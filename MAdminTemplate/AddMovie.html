@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block body %}
+
+<div class="container main p-3">
+    <form id="addmovieform" method="post">
+        <label >Movie Title:</label>
+        <input type="text" class="form-control" name="Title"><br>
+
+        <label for="">Category :</label>
+        <input type="text" class="form-control" name="Category"><br>
+
+        <label for="">Language :</label>
+        <input type="text" class="form-control" name="language"><br>
+
+        <label for="">Release Date :</label>
+        <input type="date" class="form-control" name="release_date"><br>
+
+         <label for="">Duration :</label>
+        <input type="text" class="form-control" name="duration"><br>
+
+        <label for="">Poster(Size must be 462 x 195) :</label> <p id="msg" style="color: rgb(180, 58, 58);"></p>
+        <input type="file" class="form-control" id="posterInput" name="poster" onchange="validateImage(this)"><br>
+        <p id="msg"></p>
+
+        <label for="">Trailer :</label>
+        <input type="file" class="form-control" name="Trailer"><br>
+
+        <label for="">Discription :</label>
+        <input  class="form-control" name="discription"><br>
+
+
+
+        <input type="submit" value="Add" class="btn btn-dark input-center">
+
+    </form>
+
+
+</div>
+<script>
+
+    let isImageValid = false;
+    document.getElementById('addmovieform').addEventListener('submit',(e) => {
+    
+        e.preventDefault();
+        if (!isImageValid) {  
+            alert("Please upload a valid image before submitting!");
+            return;
+    }
+
+            const formdata = new FormData(e.target)
+           
+            const data = Object.entries(formdata.entries())
+
+
+            fetch('/movieadmin/add_movie_api/',
+                {
+                    method: "POST",
+                    body: formdata
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log("success")
+                    alert(result.message || result.error)
+                    window.location.href = '/theatre/';
+                })
+                .catch((error) => {
+                    console.log(result.error)
+    })
+})
+
+function validateImage(input){
+    const file = input.files[0];
+    const msg = document.getElementById("msg");
+    msg.innerText = ""; 
+    isImageValid = false;
+
+    if (!file) return;
+
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    img.onload = function () {
+        const minWidth = 462;
+        const minHeight = 195;
+
+        if (img.width < minWidth || img.height < minHeight) {
+            msg.innerText = `Minimum images size must be ${minWidth}x${minHeight}`;
+            isImageValid = false;
+        } else{
+            isImageValid = true;
+        }
+    };
+};
+</script>
+
+{% endblock body %}
+

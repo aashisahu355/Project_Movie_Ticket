@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/addmovie.css' %}"> -->
+<style>
+    .main {
+
+        height: fit-content;
+        max-width: 1000;
+        border: 2px solid rgb(172, 172, 199);
+        box-shadow: 2px 2px 5px white;
+    }
+
+    .seat-box:hover {
+
+        
+        box-shadow: 2px 2px 5px black;
+    }
+    .booked{
+        background-color: rgb(157, 39, 39);
+        color: white;
+        cursor: not-allowed;
+        pointer-events: none;
+
+    }
+</style>
+
+{% endblock css %}
+
+
+
+{% block body %}
+
+
+<h4 class=" m-3 text-center text-capitalize fs-3">Choose your seat</h4>
+
+<div class="container  ps-3 w-75">
+    {% for category, data in seats.items %}
+    <div class="row mb-2">
+        
+        <div class="d-flex justify-content-between align-items-center py-2  bg-light border rounded-5">
+         
+           <div class="fs-5 ms-2">Price : {{ data.price }}</div>
+            <div class="fs-4 mx-auto pe-5">{{ category }}</div>  
+        </div>
+        
+       
+
+        {% for seat in data.numbers %}
+        <div class="col-1 seat-box rounded-5 text-center m-2 p-2" data-seat="{{ category }}-{{ seat }}">
+           <i class="fa-solid fa-couch me-1"></i>  {{ seat }}
+
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+
+
+<form method="POST"  class="m-3 text-center" id="seatForm">
+    {% csrf_token %}
+    <input type="hidden" name="seats" id="seatsInput" class="form-control">
+    <input type="submit" class="btn btn-dark mt-3 w-50 form-control center-input" value="Continue">
+</form>
+
+</div>
+
+
+<script>
+    var selectedSeats = [];
+
+    document.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("seat-box")) return;
+
+        let seat = e.target.getAttribute("data-seat");
+
+        if (selectedSeats.includes(seat)) {
+            selectedSeats = selectedSeats.filter(s => s !== seat);
+            e.target.style.background = "";
+            e.target.style.color = "";
+        } else {
+            selectedSeats.push(seat);
+            e.target.style.background = "green";
+            e.target.style.color = "white";
+        }
+        console.log(selectedSeats)
+    });
+
+    document.getElementById("seatForm").addEventListener("submit", function(e){
+        document.getElementById("seatsInput").value = JSON.stringify(selectedSeats);
+    });
+    let bookedSeats = {{ booked|safe }};
+
+   document.querySelectorAll(".seat-box").forEach(box => {
+    let seatId = box.dataset.seat;
+    if (bookedSeats.includes(seatId)) {
+        box.classList.add("booked");
+
+    }
+   });
+
+</script>
+
+
+{% endblock body %}

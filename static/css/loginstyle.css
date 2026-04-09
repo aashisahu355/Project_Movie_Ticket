@@ -1,0 +1,35 @@
+.main{
+    align-items: center;
+    height: 90vh;
+    background-position: center;
+    display: grid;
+	place-items: center;
+    background-image: url('../mymedia/images/bg-form.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.form_container{
+
+height: fit-content;
+max-width: 800px;
+border-radius: 25px;
+border: 2px solid rgb(172, 172, 199);
+box-shadow: 2px 2px 5px white;
+}
+
+#col1{
+     background-repeat: no-repeat;
+     background-size: cover;
+     max-width:350px;
+     height: 410px;
+     border-radius: 25px 0 0 25px;
+     background-image: url("../mymedia/images/background.jpg");
+     place-content: center;
+}
+
+
+
+
+
+
+

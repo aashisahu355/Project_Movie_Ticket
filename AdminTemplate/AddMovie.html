@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block body %}
+
+<div class="container main p-3">
+    <form id="addmovieform" method="post">
+        <label >Movie Title:</label>
+        <input type="text" class="form-control" name="Title"><br>
+
+        <label for="">Category :</label>
+        <input type="text" class="form-control" name="Category"><br>
+
+        <label for="">Language :</label>
+        <input type="text" class="form-control" name="language"><br>
+
+        <label for="">Release Date :</label>
+        <input type="date" class="form-control" name="release_date"><br>
+
+         <label for="">Duration :</label>
+        <input type="text" class="form-control" name="duration"><br>
+
+        <label for="">Poster :</label>
+        <input type="file" class="form-control" name="poster"><br>
+
+        <label for="">Trailer :</label>
+        <input type="file" class="form-control" name="Trailer"><br>
+
+        <label for="">Discription :</label>
+        <input  class="form-control" name="discription"><br>
+
+
+
+        <input type="submit" value="Add" class="btn btn-dark">
+
+    </form>
+
+
+</div>
+<script>
+    document.getElementById('addmovieform').addEventListener('submit',(e) => {
+    e.preventDefault();
+
+            const formdata = new FormData(e.target)
+           
+            const data = Object.entries(formdata.entries())
+
+
+            fetch('/movieadmin/add_movie_api/',
+                {
+                    method: "POST",
+                    body: formdata
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log("success")
+                    alert(result.message || result.error)
+                    window.location.href = '/theatre/';
+                })
+                .catch((error) => {
+                    console.log(result.error)
+    })
+})
+</script>
+{% endblock body %}
+

@@ -1,0 +1,64 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+ {% block css %}
+
+   <style>
+      .card:hover{
+           box-shadow: 3px 3px 6px rgb(46, 42, 42);
+      }
+   </style>  
+
+ {% endblock css %}
+
+{% block content %}
+
+<div class="container">
+    <div class="fs-3 text-center fw-bold text-capitalize mt-3">Choose Admin Type</div>
+    <div class="row mt-3">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 my-3">
+            <a href="{% url 'taccount' %}">
+                <div class="card bg-light">
+              
+                <div class="card-body">
+                    <div class="card-title text-center fs-3 fw-bold">
+                          Theatre Admin
+                    </div>
+
+                </div>
+              </div>
+          </a>
+
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 my-3">
+            <a href="{% url 'maccount' %}">
+                <div class="card bg-light">
+              
+                <div class="card-body">
+                    <div class="card-title text-center fs-3 fw-bold">
+                        Movie Admin
+                    </div>
+
+                </div>
+            </div>
+          </a>
+        
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 my-3">
+            <a href="{% url 'uaccount' %}">
+                <div class="card bg-light">
+              
+                <div class="card-body">
+                    <div class="card-title text-center fs-3 fw-bold">
+                        User Admin
+                    </div>
+
+                </div>
+            </div>
+          </a>
+        
+        </div>
+         
+    </div>
+</div>
+    {% endblock content %}

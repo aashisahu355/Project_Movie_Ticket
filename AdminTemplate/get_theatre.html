@@ -1,0 +1,72 @@
+
+
+
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/getpannel.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<h2 class="text-center">All Theatre</h2>
+
+<div class="container main px-3">
+
+    <div class="row bg-light" style="height: 80px;">
+        <div class="col-3 fs-5 fw-bold pt-3 text-center">
+                        
+              <th>Theatre Name </th>
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+                        
+            <th>Location  </th>
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>City </th>
+
+        </div>
+         <div class="col-3 fs-5 fw-bold pt-3 text-center">
+            <th>Operations</th>
+        </div>
+
+
+    </div>
+    {% for theatre in alltheatre %}
+     <div class="row" style="border-bottom: 1px solid black;">
+        <div class="col-3 fs-5 p-2 text-center">
+                        
+              {{ theatre.name }}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+              {{ theatre.location }}
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+            {{ theatre.city }}
+
+        </div>
+         <div class="col-3 fs-5 p-2 text-center">
+        <a href="{% url 'update_theatre' theatre.id  %}"><button class="btn btn-dark">Update</button></a>
+        <button class="btn btn-dark" onclick="confirmDelete('{{theatre.id}}')">Delete</button>
+        </div>
+
+
+    </div>
+    {% endfor %}
+
+
+</div>
+<script>
+    function confirmDelete(theatreId) {
+    if(confirm("Are you sure you want to delete this movie ?")) {
+        window.location.href = `/movieadmin/del_theatre/${theatreId}/`;
+    }
+}
+
+</script>
+{% endblock content %}
+

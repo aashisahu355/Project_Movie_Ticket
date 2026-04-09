@@ -1,0 +1,35 @@
+{% extends 'theatre_dashboard.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/addmovie.css' %}">
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="container main p-3">
+    <form id="addtheatreform" method="post">
+        {% csrf_token %}
+
+        <label >Theatre Name :</label>
+        <input type="text" class="form-control" name="name"><br>
+
+        <label for="">Theatre Location :</label>
+        <input type="text" class="form-control" name="location"><br>
+
+        <label for="">City :</label>
+        <input type="text" class="form-control" name="city"><br>
+
+
+        <input type="submit" value="Add" class="btn btn-dark">
+
+    </form>
+
+
+</div>
+
+{% endblock content %}
+
