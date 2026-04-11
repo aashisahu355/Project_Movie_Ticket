@@ -270,7 +270,7 @@ def addShow(request,id):
             return JsonResponse({'message':'successfully added'})
         except Exception as e:
             return JsonResponse({'error': str(e)})    
-    return render(request,'add_show.html',{'allmovies':allmovies,'t_obj':theatre_obj})
+    return render(request,'add_show.html',{'allmovies':allmovies,'t_obj':theatre_obj,'t_id':id})
 
 
 
