@@ -57,13 +57,14 @@
     }
 
             const formdata = new FormData(e.target)
-           
-            const data = Object.entries(formdata.entries())
 
 
             fetch('/movieadmin/add_movie_api/',
                 {
                     method: "POST",
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                        },
                     body: formdata
                 })
                 .then((response) => response.json())
@@ -73,7 +74,7 @@
                     window.location.href = '/theatre/';
                 })
                 .catch((error) => {
-                    console.log(result.error)
+                    console.log(error)
     })
 })
 
