@@ -36,8 +36,8 @@ from reportlab.pdfgen import canvas
 from .models import Order
 
 
-from django.template.loader import get_template
-from xhtml2pdf import pisa
+# from django.template.loader import get_template
+# from xhtml2pdf import pisa
 
 from datetime import date, timedelta
 from django.db.models import Q
