@@ -246,9 +246,11 @@ def Select_Theatre(request):
 
 
 # Add show for particular theatre
+
+
+# Add show for particular theatre
 def addShow(request,id):
     allmovies=AddMovie.objects.all()
-    # t_id = request.session.get('theatreApp_id')
     theatre_obj = Theatre.objects.get(id = id)
     if request.method == 'POST':
         
@@ -271,7 +273,6 @@ def addShow(request,id):
         except Exception as e:
             return JsonResponse({'error': str(e)})    
     return render(request,'add_show.html',{'allmovies':allmovies,'t_obj':theatre_obj,'t_id':id})
-
 
 
 # get show deatils
