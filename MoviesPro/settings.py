@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 from pathlib import Path
@@ -114,18 +115,21 @@ WSGI_APPLICATION = 'MoviesPro.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('NAME'),
-        'HOST': os.getenv('HOST'),
-        'USER':os.getenv("USER"),
-        'PASSWORD': os.getenv("PASSWORD"),
-        'PORT': os.getenv('PORT')
+if os.getenv("DATABASE_URL"):
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('NAME'),
+            'HOST': os.getenv('HOST'),
+            'USER': os.getenv("USER"),
+            'PASSWORD': os.getenv("PASSWORD"),
+            'PORT': os.getenv('PORT')
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
