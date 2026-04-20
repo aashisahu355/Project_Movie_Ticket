@@ -34,6 +34,7 @@ def mRegisterAPI(request):
         ser= RegisterSerializer(data=request.data)
         print(request.data)
         print(ser.is_valid())
+        print("erroe" ,ser.errors)
         
         
         if ser.is_valid():
