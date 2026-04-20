@@ -115,12 +115,7 @@ WSGI_APPLICATION = 'MoviesPro.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-if os.getenv("DATABASE_URL"):
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
-else:
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': os.getenv('NAME'),
@@ -129,7 +124,7 @@ else:
             'PASSWORD': os.getenv("PASSWORD"),
             'PORT': os.getenv('PORT')
         }
-    }
+ }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

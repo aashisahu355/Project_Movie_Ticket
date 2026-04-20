@@ -30,6 +30,10 @@ from django.http import JsonResponse
 import razorpay
 
 import io
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from .models import Order
 
 
 from django.template.loader import get_template
@@ -493,37 +497,69 @@ def verify_payment(request):
 
 
 # generate ticket pdf
+
+
+
 def generate_ticket_pdf(order):
+    buffer = io.BytesIO()
 
-    # Load HTML template
-    template_path = "ticket.html"
-    template = get_template(template_path)
-    html = template.render({'order': order})
+    p = canvas.Canvas(buffer, pagesize=letter)
 
-    pdf_buffer = io.BytesIO()
-    pisa_status = pisa.CreatePDF(html, dest=pdf_buffer)
+    # Title
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(200, 750, "Movie Ticket")
 
-    if pisa_status.err:
-        return HttpResponse("Error generating ticket")
-    
+    # Normal text
+    p.setFont("Helvetica", 12)
 
-    return pdf_buffer.getvalue()
+    y = 700
 
-    
+    p.drawString(100, y, f"Order ID: {order.id}")
+    y -= 20
+
+    p.drawString(100, y, f"User: {order.user}")
+    y -= 20
+
+    p.drawString(100, y, f"Movie: {order.movie}")
+    y -= 20
+
+    p.drawString(100, y, f"Theatre: {order.theatre}")
+    y -= 20
+
+    p.drawString(100, y, f"Seat: {order.seat_number}")
+    y -= 20
+
+    p.drawString(100, y, f"Date: {order.date}")
+    y -= 20
+
+    p.drawString(100, y, f"Time: {order.time}")
+    y -= 20
+
+    p.drawString(100, y, f"Amount: ₹{order.amount}")
+    y -= 40
+
+    p.drawString(100, y, "Enjoy your movie! 🎬")
+
+    # Finish PDF
+    p.showPage()
+    p.save()
+
+    pdf = buffer.getvalue()
+    buffer.close()
+
+    return pdf
 
 
 # download ticket
-def download_ticket(request,id):
-    order = Order.objects.get(id=order_id)
+def download_ticket(request, id):
+    order = Order.objects.get(id=id)
 
     pdf_bytes = generate_ticket_pdf(order)
 
-    # Create response
-    response = HttpResponse(content_type="application/pdf")
-    response['Content-Disposition'] = f'attachment; filename="ticket_{order_id}.pdf"'
+    response = HttpResponse(pdf_bytes, content_type="application/pdf")
+    response['Content-Disposition'] = f'attachment; filename="ticket_{id}.pdf"'
 
     return response
-
 
 # user bookings
 def user_booking_details(request):
