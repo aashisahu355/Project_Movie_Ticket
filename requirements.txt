@@ -3,7 +3,6 @@ djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
 
 pillow==11.2.1
-pillow-avif-plugin==1.5.2
 razorpay==2.0.0
 reportlab==4.4.5
 requests==2.32.5

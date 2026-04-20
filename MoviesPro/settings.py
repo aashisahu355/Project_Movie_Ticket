@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from dotenv import load_dotenv
-import dj_database_url
 
 load_dotenv()
 from pathlib import Path
 from datetime import timedelta
-import pillow_avif  
+try:
+    import pillow_avif
+except ImportError:
+    pass
 
 
 SIMPLE_JWT = {
