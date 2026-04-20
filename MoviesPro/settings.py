@@ -103,7 +103,9 @@ ROOT_URLCONF = 'MoviesPro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'UserTemplate','AdminTemplate','MAdminTemplate'],
+        'DIRS': [ BASE_DIR / "UserTemplate",
+            BASE_DIR / "AdminTemplate",
+            BASE_DIR / "MAdminTemplate",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
