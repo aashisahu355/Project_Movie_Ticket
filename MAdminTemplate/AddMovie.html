@@ -27,8 +27,8 @@
          <label for="">Duration :</label>
         <input type="text" class="form-control" name="duration"><br>
 
-        <label for="">Poster(Size must be 462 x 195) :</label> <p id="msg" style="color: rgb(180, 58, 58);"></p>
-        <input type="file" class="form-control" id="posterInput" name="poster" onchange="validateImage(this)"><br>
+        <label for="">Poster(Size must be 462 x 195) :</label>
+        <input type="file" class="form-control" id="posterInput" name="poster" ><br>
         <p id="msg"></p>
 
         <label for="">Trailer :</label>
@@ -47,14 +47,11 @@
 </div>
 <script>
 
-    let isImageValid = false;
+    
     document.getElementById('addmovieform').addEventListener('submit',(e) => {
     
         e.preventDefault();
-        if (!isImageValid) {  
-            alert("Please upload a valid image before submitting!");
-            return;
-    }
+        
 
             const formdata = new FormData(e.target)
 
@@ -75,29 +72,7 @@
     })
 })
 
-function validateImage(input){
-    const file = input.files[0];
-    const msg = document.getElementById("msg");
-    msg.innerText = ""; 
-    isImageValid = false;
 
-    if (!file) return;
-
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-
-    img.onload = function () {
-        const minWidth = 462;
-        const minHeight = 195;
-
-        if (img.width < minWidth || img.height < minHeight) {
-            msg.innerText = `Minimum images size must be ${minWidth}x${minHeight}`;
-            isImageValid = false;
-        } else{
-            isImageValid = true;
-        }
-    };
-};
 </script>
 
 {% endblock body %}

@@ -154,6 +154,8 @@ def add_movie(request):
 def add_movie_api(request):
     movie_id = request.session.get('movieApp_id')
     ser = AddMovieSer(data=request.data)
+    print(request.data)
+    print("Check:",ser.is_valid())
     if ser.is_valid():
         ser.save(user_id=movie_id)
         return Response({'message': 'Successfully Added'},status=status.HTTP_200_OK)
