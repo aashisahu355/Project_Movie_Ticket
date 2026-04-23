@@ -90,9 +90,6 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-print("USER:", os.getenv("EMAIL_HOST_USER"))
-print("PASS:", os.getenv("EMAIL_HOST_PASSWORD"))
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

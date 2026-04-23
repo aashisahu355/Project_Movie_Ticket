@@ -33,9 +33,6 @@ def mRegisterAPI(request):
     
     if request.method == 'POST':
         ser= RegisterSerializer(data=request.data)
-        print(request.data)
-        print(ser.is_valid())
-        print("erroe" ,ser.errors)
         
         
         if ser.is_valid():
