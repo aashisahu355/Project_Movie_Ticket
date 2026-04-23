@@ -12,6 +12,7 @@
 
 <div class="container main p-3">
     <form id="addmovieform" method="post">
+      {% csrf_token %}
         <label >Movie Title:</label>
         <input type="text" class="form-control" name="Title"><br>
 
