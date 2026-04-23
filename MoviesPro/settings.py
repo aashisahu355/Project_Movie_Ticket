@@ -127,7 +127,7 @@ WSGI_APPLICATION = 'MoviesPro.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 import os
 
-if os.getenv("PYTHONANYWHERE_SITE"):
+if os.environ.get('USER') == 'aashisahu355':
     
     DATABASES = {
         'default': {
