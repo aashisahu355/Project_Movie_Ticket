@@ -12,7 +12,6 @@
 
 <div class="container main p-3">
     <form id="addmovieform" method="post">
-      {% csrf_token %}
         <label >Movie Title:</label>
         <input type="text" class="form-control" name="Title"><br>
 
@@ -63,9 +62,6 @@
             fetch('/movieadmin/add_movie_api/',
                 {
                     method: "POST",
-                    headers: {
-                        "X-CSRFToken": csrftoken
-                        },
                     body: formdata
                 })
                 .then((response) => response.json())
