@@ -27,7 +27,7 @@
          <label for="">Duration :</label>
         <input type="text" class="form-control" name="duration"><br>
 
-        <label for="">Poster(Size must be 462 x 195) :</label>
+        <label for="">Poster(Size must be 462 x 195) :
         <input type="file" class="form-control" id="posterInput" name="poster" ><br>
         <p id="msg"></p>
 
@@ -53,7 +53,7 @@
         e.preventDefault();
         
 
-            const formdata = new FormData(e.target)
+            const formdata = new FormData(e.target);
 
 
             fetch('/movieadmin/add_movie_api/',
